@@ -3,13 +3,13 @@ const asyncHandler = require('express-async-handler');
 
 const { createSignature } = require('../middlewares/jwt');
 exports.Register = asyncHandler(async (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
     // Role admin For Payments
     const userEmail = await Auth.findOne({ email });
     console.log(`userEmail`, userEmail);
     if (userEmail) throw new Error('Email already exists ');
 
-    const user = await Auth.create({ name, email, password });
+    const user = await Auth.create({ name, email, password, role });
 
     user.token = createSignature(user._id);
 

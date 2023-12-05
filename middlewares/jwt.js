@@ -7,4 +7,8 @@ function createSignature(_id) {
     });
 }
 
-module.exports = { createSignature };
+function verifySignature(token) {
+    return jwt.verify(token, process.env.SIGNATURE);
+}
+
+module.exports = { createSignature, verifySignature };
